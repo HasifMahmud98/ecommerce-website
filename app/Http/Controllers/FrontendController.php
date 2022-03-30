@@ -15,7 +15,8 @@ class FrontendController extends Controller
 
     public function shop()
     {
-        $products = Product::orderBy('id', 'desc')->get();
+        $products = Product::orderBy('id', 'desc')->with('images')->get();
+        // dd($products);
         return view('frontend.shop', compact('products'));
     }
 }

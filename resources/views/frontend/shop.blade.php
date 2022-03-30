@@ -773,10 +773,12 @@
                                                 $i = 1;
                                             @endphp --}}
                                             {{-- @foreach ($item->images as $image) --}}
-                                                {{-- @if ($i > 0) --}}
-                                                    <img src="{{ asset('src/images/products/' . $item->images[0]->image) }}"
-                                                        alt="{{ $item->title }}" />
-                                                {{-- @endif --}}
+                                            {{-- @if ($i > 0) --}}
+                                            @if (count($item->images) > 0)
+                                                <img src="{{ asset('images/products-image/' . $item->images[0]->image) }}"
+                                                    alt="{{ $item->title }}" />
+                                            @endif
+                                            {{-- @endif --}}
                                             {{-- @endforeach --}}
                                         </a>
                                         <span class="tag danger font-body--md-400">sale 50%</span>
