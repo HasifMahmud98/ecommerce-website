@@ -15,6 +15,13 @@ class AdminPageController extends Controller
         return view('backend.index');
     }
 
+    public function products()
+    {
+        $products = Product::orderBy('id', 'asc')->with('images')->get();
+        
+        return view('backend.products', compact('products'));
+    }
+    
     public function productCreate()
     {
         return view('backend.product-create');
@@ -27,7 +34,7 @@ class AdminPageController extends Controller
             'title'             => 'required|max:55',
             'description'       => 'required',
             'price'             => 'required',
-            // 'quntitya'          => 'required'
+            'quantity'          => 'required'
         ]);
         
         $product = new Product;
@@ -62,7 +69,6 @@ class AdminPageController extends Controller
             foreach ($request->image as $image) {
                 
                     // insert that image 
-                    // $image                              = $request->file('image');
                     $img                                = Str::slug($request->title) . '-' . time() . '.' . $image->getClientOriginalExtension() ;
                     $location                           = public_path('images/products-image/' . $img);
                     Image::make($image)->save($location);
@@ -74,8 +80,43 @@ class AdminPageController extends Controller
             }
         }
         
+        return redirect()->route('admin.products');
+    }
 
+    public function productEdit($id)
+    {
+        $product = Product::find($id);
+        return view('backend.product-edit', compact('product'));
+    }
+
+    public function productEditPost(Request $request, $id)
+    {
         
-        return redirect()->route('admin.product.create');
+        $request->validate([
+            'title'             => 'required|max:55',
+            'description'       => 'required',
+            'price'             => 'required',
+            'quantity'          => 'required'
+        ]);
+        
+        $product = Product::find($id);
+        $product->title             = $request->title;
+        $product->description       = $request->description;
+        $product->price             = $request->price;
+        $product->quantity          = $request->quantity;
+        $product->save();
+
+        return redirect()->route('admin.products');
+    }
+
+    public function productDeletePost($id)
+    {
+        $product = Product::find($id);
+        
+        if (isset($product)) {
+            $product->delete();
+        }
+        session()->flash("Success", "Product Deleted Successfully!!!");
+        return back();
     }
 }

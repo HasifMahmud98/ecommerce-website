@@ -1,6 +1,6 @@
 @extends('backend.shared.base')
 
-@section('title', 'Create Product')
+@section('title', 'Edit Product')
 
 @section('content')
     <!-- wrapper  -->
@@ -43,58 +43,39 @@
 
                             @include('backend.partials.massages')
 
-                            <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.product.edit.post', $product->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Title</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
                                         <input type="text" name="title" required="" placeholder="Title"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Image</label>
-                                    <div class="row col-12 col-sm-8 col-lg-6">
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" required="" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
+                                            class="form-control" value="{{ $product->title }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Description</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <textarea name="description" required="" class="form-control"></textarea>
+                                        <textarea name="description" required="" class="form-control">{{ $product->description }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Price</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
                                         <input name="price" required="" type="number" placeholder="price"
-                                            class="form-control">
+                                            class="form-control" value="{{ $product->price }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Quantity</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
                                         <input name="quantity" required="" type="Quantity" placeholder="price"
-                                            class="form-control">
+                                            class="form-control" value="{{ $product->quantity }}">
                                     </div>
                                 </div>
                                 <div class="form-group row text-right">
                                     <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-                                        <button type="submit" class="btn btn-space btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-space btn-primary">Update Product</button>
                                     </div>
                                 </div>
                             </form>

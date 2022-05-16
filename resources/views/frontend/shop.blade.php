@@ -769,17 +769,10 @@
                                 <div class="cards-md cards-md--four w-100">
                                     <div class="cards-md__img-wrapper">
                                         <a href="product-details.html">
-                                            {{-- @php
-                                                $i = 1;
-                                            @endphp --}}
-                                            {{-- @foreach ($item->images as $image) --}}
-                                            {{-- @if ($i > 0) --}}
                                             @if (count($item->images) > 0)
                                                 <img src="{{ asset('images/products-image/' . $item->images[0]->image) }}"
                                                     alt="{{ $item->title }}" />
                                             @endif
-                                            {{-- @endif --}}
-                                            {{-- @endforeach --}}
                                         </a>
                                         <span class="tag danger font-body--md-400">sale 50%</span>
                                         <div class="cards-md__favs-list">

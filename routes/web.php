@@ -18,8 +18,14 @@ use App\Http\Controllers\AdminPageController;
 
 Route::group(['prefix' => 'admin'], function(){
     Route::get('/', [AdminPageController::class, 'index'])->name('admin.index');
-    Route::get('/product/create', [AdminPageController::class, 'productCreate'])->name('admin.product.create');
-    Route::post('/product/create', [AdminPageController::class, 'productStore'])->name('admin.product.store');
+    Route::group(['prefix' => '/products'], function(){
+        Route::get('/', [AdminPageController::class, 'products'])->name('admin.products');
+        Route::get('/create', [AdminPageController::class, 'productCreate'])->name('admin.product.create');
+        Route::post('/create', [AdminPageController::class, 'productStore'])->name('admin.product.store');
+        Route::get('/edit/{id}', [AdminPageController::class, 'productEdit'])->name('admin.product.edit');
+        Route::post('/edit/{id}', [AdminPageController::class, 'productEditPost'])->name('admin.product.edit.post');
+        Route::post('/delete/{id}', [AdminPageController::class, 'productDeletePost'])->name('admin.product.delete.post');
+    });
 });
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
