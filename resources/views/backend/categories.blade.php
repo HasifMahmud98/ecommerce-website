@@ -1,18 +1,8 @@
 @extends('backend.shared.base')
 
-@section('title', 'Products')
+@section('title', 'categories')
 
 <style>
-    .header-flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .add-product {
-        margin-right: 1.5rem;
-    }
-
     .mdi-delete {
         color: red;
     }
@@ -59,9 +49,9 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-header d-flex">
-                                    <h4 class="card-header-title">All Products</h4>
+                                    <h4 class="card-header-title">All Categories</h4>
                                     <div class="toolbar ml-auto">
-                                        <a href="{{ route('admin.product.create') }}" class="btn btn-primary btn-sm ">Add Product</a>
+                                        <a href="{{ route('admin.category.create') }}" class="btn btn-primary btn-sm ">Add Category</a>
                                     </div>
                                 </div>
                                 <div class="card-body p-0">
@@ -71,11 +61,9 @@
                                                 <tr class="border-0">
                                                     <th class="border-0">#</th>
                                                     <th class="border-0">Image</th>
-                                                    <th class="border-0">Product Name</th>
-                                                    <th class="border-0">Price</th>
-                                                    <th class="border-0">Quantity</th>
-                                                    <th class="border-0">Category</th>
-                                                    <th class="border-0">Customer</th>
+                                                    <th class="border-0">Category Name</th>
+                                                    <th class="border-0">Description</th>
+                                                    <th class="border-0">Subcategory</th>
                                                     <th class="border-0">Action</th>
                                                 </tr>
                                             </thead>
@@ -83,24 +71,25 @@
                                                 @php
                                                     $x = 1;
                                                 @endphp
-                                                @foreach ($products as $item)
+                                                @foreach ($categories as $item)
                                                     <tr>
                                                         <td>{{ $x++ }}</td>
                                                         <td>
                                                             <div class="m-r-10">
-                                                                @if (count($item->images) > 0)
-                                                                    <img src="{{ asset('images/products-image/' . $item->images[0]->image) }}"
-                                                                        alt="{{ $item->title }}" class="rounded"
+                                                                @if ($item->image == '')
+                                                                    <img src="{{ asset('images/defult.png') }}" alt=""
+                                                                        class="rounded" width="45">
+                                                                @else
+                                                                    <img src="{{ asset('images/categories-image/' . $item->image) }}"
+                                                                        alt="{{ $item->name }}" class="rounded"
                                                                         width="45">
                                                                 @endif
 
                                                             </div>
                                                         </td>
-                                                        <td> {{ $item->title }} </td>
-                                                        <td>৳ {{ $item->price }}</td>
-                                                        <td>{{ $item->quantity }}</td>
-                                                        <td>Fruits</td>
-                                                        <td>Patricia </td>
+                                                        <td> {{ $item->name }} </td>
+                                                        <td>{{ $item->description }}</td>
+                                                        <td>{{ $item->description }}</td>
                                                         <form action="{{ route('admin.product.delete.post', $item->id) }}"
                                                             method="post">
                                                             <td>
@@ -109,8 +98,6 @@
                                                                     <a
                                                                         href="{{ route('admin.product.edit', $item->id) }}"><i
                                                                             class="m-r-10 mdi mdi-tooltip-edit"></i></a>
-
-
 
                                                                     @csrf
                                                                     <button class="btn-style"><a
@@ -180,6 +167,6 @@
 
 @section('js')
     <script>
-        $('.products').addClass('active');
+        $('.categories').addClass('active');
     </script>
 @endsection

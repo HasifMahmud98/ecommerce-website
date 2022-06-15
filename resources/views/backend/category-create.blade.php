@@ -2,6 +2,13 @@
 
 @section('title', 'Create Category')
 
+<style>
+    .label-center {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
 @section('content')
     <!-- wrapper  -->
     <!-- ============================================================== -->
@@ -13,7 +20,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Add Product</h2>
+                        <h2 class="pageheader-title">Add Category </h2>
                         <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet
                             vestibulum mi. Morbi lobortis pulvinar quam.</p>
                         <div class="page-breadcrumb">
@@ -74,21 +81,6 @@
                                             </figure>
                                             <!-- /.card-figure -->
                                         </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" required="" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="file" name="image[]" class="form-control">
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -98,16 +90,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Price</label>
+                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Parent Category</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input name="price" required="" type="number" placeholder="price"
-                                            class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Quantity</label>
-                                    <div class="col-12 col-sm-8 col-lg-6">
-                                        <input name="quantity" required="" type="Quantity" placeholder="price"
+                                        <input name="price" required="" type="number" placeholder="Parent Category"
                                             class="form-control">
                                     </div>
                                 </div>
@@ -154,6 +139,16 @@
 
 @section('js')
     <script>
-        $('.products').addClass('active');
+        function showPreview(event) {
+            if (event.target.files.length > 0) {
+                var src = URL.createObjectURL(event.target.files[0]);
+                var preview = document.getElementById("file-ip-1-preview");
+                preview.src = src;
+                preview.style.display = "block";
+            }
+        }
+    </script>
+    <script>
+        $('.categories').addClass('active');
     </script>
 @endsection
